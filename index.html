@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>VLSM IP地址划分</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/subnet.js"></script>
+</head>
+
+<body>
+    <!-- 导航条开始 -->
+    <nav class="navbar navbar-light bg-light">
+        <span class="navbar-text">
+            VLSM IP地址划分
+        </span>
+    </nav>
+    <!-- 导航条结束 -->
+    <div class="container">
+        <form id="needs-validation" novalidate>
+            <div class="form-row" id="ipinput">
+                <div class="col-lg-2 mt-3 mb-3">
+                    <input type="text" id="getSubnetNum" class="form-control" placeholder="子网个数" required>
+                </div>
+                <div class="col-lg-1 mt-3 mb-3">
+                    <button class="btn" id="btn" type="button">确定</button>
+                </div>
+                <div class="col-lg-7 mt-3 mb-3">
+                    <input type="text" id=getIpAndAddress class="form-control" placeholder="网络地址/掩码" required>
+                </div>
+                <div class="col-lg-1 mt-3 mb-3">
+                    <button class="btn" id="btnSubmit" type="button">提交</button>
+                </div>
+                <div class="col-lg-1 mt-3 mb-3">
+                    <button class="btn" id="btnClear" type="reset">复位</button>
+                </div>
+            </div>
+            <div class="form-row title">
+                <div class="col-lg-1">主机个数</div>
+                <div class="col-lg-2">网络地址</div>
+                <div class="col-lg-2">子网掩码</div>
+                <div class="col-lg-1">网络前缀</div>
+                <div class="col-lg-2">起始地址</div>
+                <div class="col-lg-2">结束地址</div>
+                <div class="col-lg-2">广播地址</div>
+            </div>
+            <div class="form-row show">
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
