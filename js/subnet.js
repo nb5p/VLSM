@@ -1,5 +1,6 @@
 $(document).ready(function () {
-    $("#btn").click(function () {        //确定按钮被按下
+    //确定按钮被按下
+    $("#btn").click(function () {
         $(".title > div").css("visibility", "visible");
         $(".show").empty();
         var k = $("#getSubnetNum").val();
@@ -11,42 +12,49 @@ $(document).ready(function () {
             $(".show").append($("<div class='col-lg-2 mt-1 mb-1'><span id='first" + i + "'></span></div>"));
             $(".show").append($("<div class='col-lg-2 mt-1 mb-1'><span id='last" + i + "'></span></div>"));
             $(".show").append($("<div class='col-lg-2 mt-1 mb-1'><span id='bc" + i + "'></span></div>"));
-        }
+        };
          $("#btn").attr("disabled", true);
     })
 
-    $("#btnSubmit").click(function () {     //提交按钮被按下
-        var majorNetwork = readNetwork();   //读入网络地址和掩码
+    //提交按钮被按下
+    $("#btnSubmit").click(function () {
+        //读入网络地址和掩码
+        var majorNetwork = readNetwork();
 
         if (validate.inputFields()) {
             majorNetwork = calc.createMajorNetwork(majorNetwork[0], majorNetwork[1]);
             if (validate.hosts(majorNetwork, readHosts())) {
                 majorNetwork.setMinorNetworks(calc.createMinorNetworks(majorNetwork, readHosts()));
                 printAllNetworks(majorNetwork);
-                console.log(majorNetwork)
-
+                $("#getSubnetNum").val("子网个数：" + $("#getSubnetNum").val())
+                $("#getIpAndAddress").val("网络地址/掩码：" + $("#getIpAndAddress").val())
+                $("#getSubnetNum").attr("disabled", true);
+                $("#getIpAndAddress").attr("disabled", true);
             }
             else {
-                alert("网络不够分配");
-                window.location.reload()
+                alert("网络空间不够分配主机");
+                window.location.reload();
             }
         }
         else {
-            alert("输入的有问题")
+            alert("请检查输入的数据")
         }
     })
 
-    $("#btnClear").click(function () {        //复位按钮被按下
+    //复位按钮被按下
+    $("#btnClear").click(function () {
         //刷新网页
         window.location.reload()
     })
 });
 
-function extend(input) {    //IP地址位扩展
+//IP地址位扩展
+function extend(input) {
     return "00000000".substr(0, 8 - input.length) + input;
 }
 
-function readNetwork() {    //读取网络地址和掩码
+//读取网络地址和掩码
+function readNetwork() {
     var ip, mask, ipAddr, ipAddress;
     var Mask = new Array(), network = new Array()
     ipAddr = "";
@@ -73,11 +81,11 @@ function readNetwork() {    //读取网络地址和掩码
 
     //合并IP地址和掩码为一个network数组
     network.push(ipAddress, Mask);
-    // console.log(network);
     return network;
 }
 
-function readHosts() {  //读取主机个数
+//读取主机个数
+function readHosts() {
     var hosts = new Array();
     var biggestFirst = (a, b) => b - a;
     var k = $("#getSubnetNum").val();
@@ -322,7 +330,6 @@ var calc = (function () {
         };
 
         subnets.forEach(pusher);
-
         return minorNetworks;
     };
 
@@ -340,8 +347,10 @@ var calc = (function () {
     };
 })();
 
-var validate = (function () {   //所有的验证都在这里
-    var hosts = function (majorNetwork, hosts) {    //验证输入的数据是否可行
+//所有的验证都在这里
+var validate = (function () {
+    //验证输入的数据是否可行
+    var hosts = function (majorNetwork, hosts) {
         hosts = hosts.map(x => calc.numberOfHosts(calc.subnetRequired(x)));
         var sum = (a, b) => a + b;
         hosts = hosts.reduce(sum);
@@ -360,7 +369,8 @@ var validate = (function () {   //所有的验证都在这里
         return false;
     };
 
-    var prefix = function (prefix) {    //正则验证输入的掩码
+    //正则验证输入的掩码
+    var prefix = function (prefix) {
         var regex = /^\d$|^[1,2]\d$|^3[0,2]$/;
         if (regex.test(prefix)) {
             return true;
@@ -368,7 +378,8 @@ var validate = (function () {   //所有的验证都在这里
         return false;
     };
 
-    var hostsString = function (hosts) {    //正则验证输入的主机个数
+    //正则验证输入的主机个数
+    var hostsString = function (hosts) {
         var regex = /^[0-9]+(,[0-9]+)*$/;
         if (regex.test(hosts)) {
             return true;
@@ -376,7 +387,8 @@ var validate = (function () {   //所有的验证都在这里
         return false;
     };
 
-    var inputFields = function () { //验证数据
+    //验证数据
+    var inputFields = function () {
         var network = $("#getIpAndAddress").val().split("/")[0];
         var netmask = $("#getIpAndAddress").val().split("/")[1];
         var hosts = "";

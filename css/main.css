@@ -1,11 +1,1 @@
-.form-row > div > button {
-    width: 100%;
-}
-.title > div {
-    text-align: center;
-    visibility: hidden;
-    /* display: none; */
-}
-.show > div {
-    text-align: center;
-}
+.form-row>div>button{width:100%}.title>div{text-align:center;visibility:hidden}.show>div{text-align:center}
